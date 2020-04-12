@@ -11,10 +11,24 @@ The Game component renders a board with placeholder values
 
 // Square component that renders individual square of the board
 class Square extends React.Component {
+    // All React component classes that have a constructor should start with a super(props) call.
+    constructor(props) {
+        super(props);
+        this.state = {
+            value: null,
+        };
+    }
+
+    /*
+    By calling this.setState from an onClick handler in the Square’s render method, 
+    we tell React to re-render that Square whenever its <button> is clicked. 
+    After the update, the Square’s this.state.value will be 'X', 
+    so we’ll see the X on the game board. If you click on any Square, an X should show up.
+    */
     render() {
         return (
-            <button className="square">
-                {this.props.value}
+            <button className="square" onClick={() => this.setState({value: 'X'})}>
+                {this.state.value}
             </button>
         );
     }
