@@ -59,6 +59,7 @@ class Board extends React.Component {
         super(props);
         this.state = {
             squares: Array(9).fill(null),
+            turnX: true,
         };
     }
     handleClick(i) {
@@ -66,8 +67,10 @@ class Board extends React.Component {
         we call .slice() to create a copy of the squares array to modify instead of modifying the existing array. 
         */
         const squares = this.state.squares.slice(); 
-        squares[i] = 'X';
-        this.setState({squares: squares});
+        squares[i] = this.state.turnX ? 'X' : 'O';
+        this.setState({squares: squares,
+                    turnX: !this.state.turnX,
+                });
     }
     renderSquare(i) {
         return (<Square value={this.state.squares[i]}
@@ -76,7 +79,7 @@ class Board extends React.Component {
     }
     render() {
         
-        const status = 'Next player: X';
+        const status = 'Next player: ' + (this.state.turnX ? 'X' : 'O');
 
         return (
             <div>
